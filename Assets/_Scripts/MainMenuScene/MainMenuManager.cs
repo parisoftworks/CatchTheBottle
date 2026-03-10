@@ -1,3 +1,4 @@
+using _Scripts.LevelScene;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -32,19 +33,19 @@ namespace _Scripts.MainMenuScene
         // Set difficulty
         public void SetDifficultyEasy()
         {
-            GameplayManager.Instance.Difficulty = "Easy";
+            GameplayManager.Instance.currentDifficulty = DifficultyManager.Difficulty.Easy;
             settingsScreen.SetActive(false);
             mainMenuScreen.SetActive(true);
         }
         public void SetDifficultyMedium()
         {
-            GameplayManager.Instance.Difficulty = "Medium";
+            GameplayManager.Instance.currentDifficulty = DifficultyManager.Difficulty.Medium;
             settingsScreen.SetActive(false);
             mainMenuScreen.SetActive(true);
         }
         public void SetDifficultyHard()
         {
-            GameplayManager.Instance.Difficulty = "Hard";
+            GameplayManager.Instance.currentDifficulty = DifficultyManager.Difficulty.Hard;
             settingsScreen.SetActive(false);
             mainMenuScreen.SetActive(true);
         }

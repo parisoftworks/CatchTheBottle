@@ -1,3 +1,4 @@
+using _Scripts.LevelScene;
 using UnityEngine;
 
 namespace _Scripts
@@ -5,13 +6,8 @@ namespace _Scripts
     public class GameplayManager : MonoBehaviour
     {
         public static GameplayManager Instance;
-
-        public enum Difficulty
-        {
-            Easy,
-            Medium,
-            Hard
-        }
+        
+        public DifficultyManager.Difficulty currentDifficulty;
 
         private void Awake()
         {

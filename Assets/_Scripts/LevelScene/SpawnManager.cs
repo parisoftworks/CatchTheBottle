@@ -18,7 +18,7 @@ namespace _Scripts.LevelScene
         {
             _spawnPos = new Vector2(Random.Range(-1.7f, 1.7f), 7f);
             Instantiate(bottle, _spawnPos, Quaternion.identity);
-            Invoke(nameof(SpawnBottle), DifficultyManager.GetDifficultyBottleRespawnTimer(MainManager.BottlesCaught));
+            Invoke(nameof(SpawnBottle), DifficultyManager.GetDifficultyBottleRespawnTimer(MainManager.BottlesCaught, GameplayManager.Instance.currentDifficulty));
         }
     }
 }

@@ -35,7 +35,7 @@ namespace _Scripts.LevelScene
             }
         }
         
-        private static DifficultySettings GetSettings(Difficulty difficulty)
+        private static DifficultySettings SetDifficulty(Difficulty difficulty)
         {
             return difficulty switch
             {
@@ -63,14 +63,14 @@ namespace _Scripts.LevelScene
         
         public static float GetDifficultyBottleSpeed(float counter, Difficulty difficulty)
         {
-            var settings = GetSettings(difficulty);
+            var settings = SetDifficulty(difficulty);
             var progress = Mathf.Clamp01(counter / settings.RampTarget);
             return Mathf.Lerp(settings.StartSpeed, settings.MaxSpeed, progress);
         }
 
         public static float GetDifficultyBottleRespawnTimer(float counter, Difficulty difficulty)
         {
-            var settings = GetSettings(difficulty);
+            var settings = SetDifficulty(difficulty);
             var progress = Mathf.Clamp01(counter / settings.RampTarget);
             return Mathf.Lerp(settings.StartRespawn, settings.MinRespawn, progress);
         }
