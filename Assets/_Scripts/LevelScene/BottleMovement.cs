@@ -1,4 +1,3 @@
-using _Scripts.MainMenuScene;
 using UnityEngine;
 
 namespace _Scripts.LevelScene
@@ -8,7 +7,7 @@ namespace _Scripts.LevelScene
         private float _bottleSpeed;
         private bool _markedToDestroy;
 
-        private void Start()
+        private void OnEnable()
         {
             _bottleSpeed = DifficultyManager.GetDifficultyBottleSpeed(MainManager.BottlesCaught, GameplayManager.Instance.currentDifficulty);
             Debug.Log($"Spawning bottle with speed {_bottleSpeed}");
@@ -20,19 +19,19 @@ namespace _Scripts.LevelScene
 
             if (transform.position.y < -4.5f && !_markedToDestroy)
             {
+                MainManager.DestroyOneHealthBottle();
                 PlayMissedBottleSound();
             }
 
             if (transform.position.y < -6f && _markedToDestroy)
             {
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
         }
 
         private void PlayMissedBottleSound()
         {
             GetComponent<AudioSource>().Play();
-            MainManager.BottlesLeftToBroke--;
             _markedToDestroy = true;
         }
     }

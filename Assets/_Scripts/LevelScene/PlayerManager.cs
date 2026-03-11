@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -44,7 +43,7 @@ namespace _Scripts.LevelScene
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            Destroy(other.gameObject);
+            other.gameObject.SetActive(false);
             MainManager.BottlesCaught++;
             GetComponent<AudioSource>().Play();
         }

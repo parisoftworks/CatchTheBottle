@@ -14,13 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
   m_GroupName: Localization-String-Tables-Slovak (sk)
   m_GUID: beae677c3041f20488b089aadce4255e
-  m_SerializeEntries:
-  - m_GUID: b67a6c3cdd8995148a3d9a9cf0845014
-    m_Address: Localizations_sk
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale-sk
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 098678b011faf344fa06206693a09231, type: 2}
   m_SchemaSet:

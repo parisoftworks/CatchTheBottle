@@ -32,7 +32,13 @@ namespace _Scripts.LevelScene
             _hasSpawnedAtLeastOnce = true;
 
             _spawnPos = new Vector2(randomX, 7f);
-            Instantiate(bottle, _spawnPos, Quaternion.identity);
+            //Instantiate(bottle, _spawnPos, Quaternion.identity);
+            GameObject bottle = ObjectPoolManager.SharedInstance.GetObjectFromPool();
+            if (bottle != null)
+            {
+                bottle.transform.position = _spawnPos;
+                bottle.SetActive(true);
+            }
 
             Invoke(nameof(SpawnBottle), DifficultyManager.GetDifficultyBottleRespawnTimer(MainManager.BottlesCaught, GameplayManager.Instance.currentDifficulty));
         }
