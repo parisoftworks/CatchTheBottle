@@ -5,7 +5,6 @@ namespace _Scripts.LevelScene
 {
     public class BottleMovement : MonoBehaviour
     {
-        // Initialize variables
         private float _bottleSpeed;
         private bool _markedToDestroy;
 
@@ -15,7 +14,6 @@ namespace _Scripts.LevelScene
             Debug.Log($"Spawning bottle with speed {_bottleSpeed}");
         }
 
-        // Update is called once per frame
         private void Update()
         {
             transform.Translate(Vector2.down * (_bottleSpeed * Time.deltaTime));

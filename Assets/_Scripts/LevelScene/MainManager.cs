@@ -14,7 +14,6 @@ namespace _Scripts.LevelScene
         public Component gameOverUI;
         public Component gameUI;
         public TMP_Text gameOverCounter;
-        private static bool _enabled;
         private BannerView _bannerView;
         
         private void Start()
@@ -34,12 +33,12 @@ namespace _Scripts.LevelScene
             _bannerView.LoadAd(new AdRequest());
             
             BottlesCaught = 0;
-            _enabled = false;
+            BottlesLeftToBroke = DifficultyManager.GetDifficultyBottlesLeft(GameplayManager.Instance.currentDifficulty);
+            Time.timeScale = 1f;
         }
 
         private void Update()
         {
-            if (!_enabled) return;
             scoreText.text = $"Score: {BottlesCaught}";
             livesText.text = $"Bottles left: {BottlesLeftToBroke}";
 
@@ -63,7 +62,7 @@ namespace _Scripts.LevelScene
         
         public void RestartGame()
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(0);
         }
     }
 }

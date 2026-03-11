@@ -2159,6 +2159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SpawnManager
   bottle: {fileID: 3512183949119780421, guid: 5fc2eee1f2b8e1746a900269a158967b, type: 3}
   player: {fileID: 151746568}
+  minSpawnDistance: 0.8
 --- !u!4 &1330080379
 Transform:
   m_ObjectHideFlags: 0
@@ -2394,7 +2395,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Lives: 0
+  m_text: 'Bottles left: 0
 
 '
   m_isRightToLeft: 0

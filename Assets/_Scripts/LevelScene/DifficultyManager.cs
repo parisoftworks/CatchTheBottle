@@ -1,5 +1,4 @@
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace _Scripts.LevelScene
 {
@@ -14,24 +13,27 @@ namespace _Scripts.LevelScene
         
         private struct DifficultySettings
         {
-            public float StartSpeed;
-            public float MaxSpeed;
-            public float StartRespawn;
-            public float MinRespawn;
-            public float RampTarget;
+            public readonly float StartSpeed;
+            public readonly float SpeedIncreasePerBottle;
+            public readonly float StartRespawn;
+            public readonly float RespawnDecreasePerBottle;
+            public readonly float MinRespawn;
+            public readonly int BottlesLeft;
 
             public DifficultySettings(
                 float startSpeed,
-                float maxSpeed,
+                float speedIncreasePerBottle,
                 float startRespawn,
+                float respawnDecreasePerBottle,
                 float minRespawn,
-                float rampTarget)
+                int bottlesLeft)
             {
                 StartSpeed = startSpeed;
-                MaxSpeed = maxSpeed;
+                SpeedIncreasePerBottle = speedIncreasePerBottle;
                 StartRespawn = startRespawn;
+                RespawnDecreasePerBottle = respawnDecreasePerBottle;
                 MinRespawn = minRespawn;
-                RampTarget = rampTarget;
+                BottlesLeft = bottlesLeft;
             }
         }
         
@@ -40,39 +42,44 @@ namespace _Scripts.LevelScene
             return difficulty switch
             {
                 Difficulty.Easy => new DifficultySettings(
-                    2.2f, 4.2f,
-                    1.35f, 0.80f,
-                    40f),
+                    3.2f, 0.08f,
+                    1.00f, 0.012f,
+                    0.45f, 8),
 
                 Difficulty.Medium => new DifficultySettings(
-                    2.8f, 5.4f,
-                    1.10f, 0.60f,
-                    35f),
+                    4.3f, 0.11f,
+                    0.80f, 0.016f,
+                    0.30f, 5),
 
                 Difficulty.Hard => new DifficultySettings(
-                    3.5f, 6.8f,
-                    0.90f, 0.42f,
-                    30f),
+                    5.5f, 0.15f,
+                    0.65f, 0.020f,
+                    0.20f, 3),
 
                 _ => new DifficultySettings(
-                    2.8f, 5.4f,
-                    1.10f, 0.60f,
-                    35f)
+                    4.3f, 0.11f,
+                    0.80f, 0.016f,
+                    0.30f, 5)
             };
         }
         
         public static float GetDifficultyBottleSpeed(float counter, Difficulty difficulty)
         {
             var settings = SetDifficulty(difficulty);
-            var progress = Mathf.Clamp01(counter / settings.RampTarget);
-            return Mathf.Lerp(settings.StartSpeed, settings.MaxSpeed, progress);
+            return settings.StartSpeed + counter * settings.SpeedIncreasePerBottle;
         }
 
         public static float GetDifficultyBottleRespawnTimer(float counter, Difficulty difficulty)
         {
             var settings = SetDifficulty(difficulty);
-            var progress = Mathf.Clamp01(counter / settings.RampTarget);
-            return Mathf.Lerp(settings.StartRespawn, settings.MinRespawn, progress);
+            return Mathf.Max(
+                settings.MinRespawn,
+                settings.StartRespawn - counter * settings.RespawnDecreasePerBottle);
+        }
+
+        public static int GetDifficultyBottlesLeft(Difficulty difficulty)
+        {
+            return SetDifficulty(difficulty).BottlesLeft;
         }
     }
 }

@@ -6,7 +6,6 @@ namespace _Scripts.LevelScene
 {
     public class PlayerManager : MonoBehaviour
     {
-        // Initialize variables
         private Vector2 _touchPosition;
 
         private void Update()
@@ -31,21 +30,16 @@ namespace _Scripts.LevelScene
 
         private void HandleTouch(Vector2 touchPosition)
         {
-            // Convert touch position to world position
             var worldPosition = Camera.main!.ScreenToWorldPoint(new Vector3(
                 touchPosition.x, 
                 touchPosition.y, 
                 Camera.main.nearClipPlane
                 ));
             
-            // Use position
-            transform.position = worldPosition.x switch
-            {
-                <= 1.5f and >= -1.5f => new Vector2(worldPosition.x, -3f),
-                < -1.5f => new Vector2(-1.5f, -3f),
-                > 1.5f => new Vector2(1.5f, -3f),
-                _ => throw new ArgumentOutOfRangeException()
-            };
+            var clampedX = Mathf.Clamp(worldPosition.x, 
+                GameplayManager.Instance.leftX, 
+                GameplayManager.Instance.rightX);
+            transform.position = new Vector2(clampedX, -3);
         }
 
         private void OnTriggerEnter2D(Collider2D other)
