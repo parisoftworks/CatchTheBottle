@@ -2121,9 +2121,8 @@ MonoBehaviour:
   gameOverUI: {fileID: 483116195}
   gameUI: {fileID: 1324128377}
   gameOverCounter: {fileID: 124347718}
-  healthbar: {fileID: 1587247154}
-  healthbarBottle: {fileID: 3051592646616985988, guid: f04145b5bebda3f4faa3b4157fd751dd, type: 3}
-  pauseBtn: {fileID: 818167590}
+  healthBar: {fileID: 1587247154}
+  healthBarBottle: {fileID: 3051592646616985988, guid: f04145b5bebda3f4faa3b4157fd751dd, type: 3}
 --- !u!4 &858396645
 Transform:
   m_ObjectHideFlags: 0

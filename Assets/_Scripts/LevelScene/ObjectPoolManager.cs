@@ -19,6 +19,7 @@ namespace _Scripts.LevelScene
         {
             pooledObjects = new List<GameObject>();
             GameObject tmp;
+            
             for(var i = 0; i < poolSize; i++)
             {
                 tmp = Instantiate(objectToPool);

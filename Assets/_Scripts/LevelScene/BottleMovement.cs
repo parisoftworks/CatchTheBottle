@@ -17,16 +17,19 @@ namespace _Scripts.LevelScene
         {
             transform.Translate(Vector2.down * (_bottleSpeed * Time.deltaTime));
 
-            if (transform.position.y < -4.5f && !_markedToDestroy)
+            if (transform.position.y < -3.5f && !_markedToDestroy)
             {
                 MainManager.DestroyOneHealthBottle();
                 PlayMissedBottleSound();
             }
 
             if (transform.position.y < -6f && _markedToDestroy)
-            {
                 gameObject.SetActive(false);
-            }
+        }
+
+        private void OnDisable()
+        {
+            _markedToDestroy = false;
         }
 
         private void PlayMissedBottleSound()

@@ -1,16 +1,14 @@
 using GoogleMobileAds.Api;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 namespace _Scripts.LevelScene
 {
     public class MainManager : MonoBehaviour
     {
-        public static MainManager Instance;
-        public static int BottlesLeftToBroke;
+        private static MainManager _instance;
+        private static int _bottlesLeftToBroke;
         public static int BottlesCaught;
 
         public TMP_Text scoreText;
@@ -19,13 +17,14 @@ namespace _Scripts.LevelScene
         public TMP_Text gameOverCounter;
         private BannerView _bannerView;
 
-        public GameObject healthbar;
-        public GameObject healthbarBottle;
-        public GameObject pauseBtn;
+        public GameObject healthBar;
+        public GameObject healthBarBottle;
+        
+        private static bool _gameOver;
 
         private void Awake()
         {
-            Instance = this;
+            _instance = this;
         }
 
         private void Start()
@@ -45,23 +44,29 @@ namespace _Scripts.LevelScene
             _bannerView.LoadAd(new AdRequest());
             
             BottlesCaught = 0;
-            BottlesLeftToBroke = DifficultyManager.GetDifficultyBottlesLeft(GameplayManager.Instance.currentDifficulty);
-            Debug.Log(BottlesLeftToBroke);
-
-            for (var i = 1; i <= BottlesLeftToBroke; i++)
+            if (GameplayManager.Instance != null)
+                _bottlesLeftToBroke = DifficultyManager.GetDifficultyBottlesLeft(GameplayManager.Instance.currentDifficulty);
+            else
             {
-                Instantiate(healthbarBottle, healthbar.transform);
+                Debug.LogError("GameplayManager.Instance is null");
+                SceneManager.LoadScene(0);
+            }
+
+            for (var i = 1; i <= _bottlesLeftToBroke; i++)
+            {
+                Instantiate(healthBarBottle, healthBar.transform);
                 Debug.Log("Bottle " + i + " created");
             }
             
             Time.timeScale = 1f;
+            _gameOver = false;
         }
 
         private void Update()
         {
             scoreText.text = $"{BottlesCaught}";
 
-            if (BottlesLeftToBroke is not 0) return;
+            if (!_gameOver) return;
             Time.timeScale = 0f;
             gameUI.transform.gameObject.SetActive(false);
             gameOverUI.transform.gameObject.SetActive(true);
@@ -90,16 +95,16 @@ namespace _Scripts.LevelScene
 
         public static void DestroyOneHealthBottle()
         {
-            if (Instance == null || Instance.healthbar == null)
+            if (_instance == null || _instance.healthBar == null)
                 return;
 
-            Transform healthbarTransform = Instance.healthbar.transform;
+            var healthBarTransform = _instance.healthBar.transform;
 
-            if (healthbarTransform.childCount == 0)
-                return;
-
-            Destroy(healthbarTransform.GetChild(healthbarTransform.childCount - 1).gameObject);
-            BottlesLeftToBroke--;
+            if (healthBarTransform.childCount != 0)
+                Destroy(healthBarTransform.GetChild(healthBarTransform.childCount - 1).gameObject);
+            
+            if(_bottlesLeftToBroke is not 0) _bottlesLeftToBroke--;
+            else _gameOver = true;
         }
     }
 }
