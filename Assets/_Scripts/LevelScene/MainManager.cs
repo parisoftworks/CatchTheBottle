@@ -1,4 +1,5 @@
 using GoogleMobileAds.Api;
+using GoogleMobileAds.Common;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,6 +17,7 @@ namespace _Scripts.LevelScene
         public Component gameUI;
         public TMP_Text gameOverCounter;
         private BannerView _bannerView;
+        public GameObject topbar;
 
         public GameObject healthBar;
         public GameObject healthBarBottle;
@@ -29,6 +31,8 @@ namespace _Scripts.LevelScene
 
         private void Start()
         {
+            //MobileAdsEventExecutor.ExecuteInUpdate();
+            
             MobileAds.Initialize(initializationStatus =>
             {
                 if (initializationStatus == null)
@@ -40,7 +44,7 @@ namespace _Scripts.LevelScene
                 Debug.Log("Google Mobile Ads initialization complete.");
             });
             
-            _bannerView = new BannerView("[YOUR_AD_UNIT_ID]", AdSize.Banner, AdPosition.Top);
+            _bannerView = new BannerView("ca-app-pub-3940256099942544/6300978111", AdSize.Banner, AdPosition.Bottom);
             _bannerView.LoadAd(new AdRequest());
             
             BottlesCaught = 0;
@@ -55,7 +59,7 @@ namespace _Scripts.LevelScene
             for (var i = 1; i <= _bottlesLeftToBroke; i++)
             {
                 Instantiate(healthBarBottle, healthBar.transform);
-                Debug.Log("Bottle " + i + " created");
+                //Debug.Log("Bottle " + i + " created");
             }
             
             Time.timeScale = 1f;

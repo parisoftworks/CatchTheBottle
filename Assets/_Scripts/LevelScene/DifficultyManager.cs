@@ -8,8 +8,7 @@ namespace _Scripts.LevelScene
         {
             Easy,
             Medium,
-            Hard,
-            Expert
+            Hard
         }
         
         private struct DifficultySettings
@@ -56,11 +55,6 @@ namespace _Scripts.LevelScene
                     3.9f, 0.10f,
                     0.85f, 0.013f,
                     0.35f, 3),
-
-                Difficulty.Expert => new DifficultySettings(
-                    4.5f, 0.12f,
-                    0.70f, 0.015f,
-                    0.20f, 1),
 
                 _ => new DifficultySettings(
                     3.1f, 0.07f,

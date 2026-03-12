@@ -10,7 +10,7 @@ namespace _Scripts.LevelScene
         private void OnEnable()
         {
             _bottleSpeed = DifficultyManager.GetDifficultyBottleSpeed(MainManager.BottlesCaught, GameplayManager.Instance.currentDifficulty);
-            Debug.Log($"Spawning bottle with speed {_bottleSpeed}");
+            //Debug.Log($"Spawning bottle with speed {_bottleSpeed}");
         }
 
         private void Update()
